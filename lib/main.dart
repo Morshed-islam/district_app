@@ -1,3 +1,4 @@
+import 'package:district_app_flutter/screens/category_list_item/category_list_item_screen.dart';
 import 'package:district_app_flutter/screens/home/home_screen.dart';
 import 'package:district_app_flutter/screens/splash/spalsh_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const SplashScreen());
           case 'home':
             return MaterialPageRoute(builder: (context) => const HomeScreen());
+          case 'category_list':
+            return MaterialPageRoute(builder: (context) => const CategoryListItemScreen());
           default:
             return MaterialPageRoute(builder: (context) => const SplashScreen());
         }
@@ -34,4 +37,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

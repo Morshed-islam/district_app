@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,27 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {'icon': "https://gopalganjcity.site/district_info/uploads/20250110_224221.png", 'label': 'পার্লার'},
   ];
 
-  /*
-  * (11, 'হসপিটাল', 'https://gopalganjcity.site/district_info/uploads/hospital.png'),
-(12, 'ডক্টর', 'https://gopalganjcity.site/district_info/uploads/3d-happy-cartoon-doctor-cartoon-doctor-on-transparent-background-generative-ai-png.png'),
-(13, 'অ্যাম্বুলেন্স', 'https://gopalganjcity.site/district_info/uploads/pngtree-ambulance-clipart-5-png-image_6004171.png'),
-(14, 'রক্তদাতা', 'https://gopalganjcity.site/district_info/uploads/205916.png'),
-(15, 'ডায়াগনস্টিক', 'https://gopalganjcity.site/district_info/uploads/20250109_232139.png'),
-(17, 'ফায়ার সার্ভিস', 'https://gopalganjcity.site/district_info/uploads/20250110_105214.png'),
-(18, 'থানা পুলিশ', 'https://gopalganjcity.site/district_info/uploads/20250110_105439.png'),
-(19, 'জরুরী সেবা', 'https://gopalganjcity.site/district_info/uploads/20250110_105239.png'),
-(26, 'বাড়ি ভাড়া', 'https://gopalganjcity.site/district_info/uploads/sign.png'),
-(27, 'গাড়ি ভাড়া', 'https://gopalganjcity.site/district_info/uploads/20250109_140209.png'),
-(28, 'পরিবহন', 'https://gopalganjcity.site/district_info/uploads/20250110_222359.png'),
-(29, 'ফ্লাট ও জমি', 'https://gopalganjcity.site/district_info/uploads/20250110_105604.png'),
-(30, 'চাকরি', 'https://gopalganjcity.site/district_info/uploads/20250110_105828.png'),
-(31, 'উদ্যোক্তা', 'https://gopalganjcity.site/district_info/uploads/20250110_105943.png'),
-(32, 'শিক্ষক', 'https://gopalganjcity.site/district_info/uploads/20250110_110331.png'),
-(33, 'মিস্ত্রি', 'https://gopalganjcity.site/district_info/uploads/20250110_110530.png'),
-(34, 'শিক্ষা প্রতিষ্ঠান', 'https://gopalganjcity.site/district_info/uploads/20250110_223212.png'),
-(35, 'বিদ্যুৎ অফিস', 'https://gopalganjcity.site/district_info/uploads/20250110_223528.png'),
-(36, 'কুরিয়ার সার্ভিস', 'https://gopalganjcity.site/district_info/uploads/20250110_223856.png'),
-(37, 'পার্লার', 'https://gopalganjcity.site/district_info/uploads/20250110_224221.png');*/
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.all(10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpTQZ2ymiyWERMbA6iLXtu-GdpqGqVpWKlLg&s',
-                height: 150,
+              child: Image.asset(
+                'assets/images/banner.jpeg',
                 width: double.infinity,
+                height: 200,
                 fit: BoxFit.cover,
+
               ),
             ),
           ),
@@ -93,12 +76,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
+                childAspectRatio: .90,
               ),
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                return CategoryCard(
-                  icon: categories[index]['icon'],
-                  label: categories[index]['label'],
+                return InkWell(
+                  onTap: (){
+                    if(categories[index]['label']=="ডক্টর"){
+                      Navigator.pushNamed(context, 'category_list');
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Coming soon!!!')));
+                    }
+                    log("Category Clicked ${categories[index]['label']}");
+                  },
+                  child: CategoryCard(
+                    icon: categories[index]['icon'],
+                    label: categories[index]['label'],
+                  ),
                 );
               },
             ),
@@ -126,6 +120,8 @@ class CategoryCard extends StatelessWidget {
           Image.network(icon,width: 80,height: 80,),
           SizedBox(height: 8),
           Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8),
+
         ],
       ),
     );
